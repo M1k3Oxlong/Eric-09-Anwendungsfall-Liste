@@ -90,7 +90,7 @@ public class List<ContentType> {
      */
     public boolean isEmpty() {
         //TODO 01a: Die Liste ist leer, wenn es kein erstes Element gibt.
-        return false;
+        return first == null;
     }
 
     /**
@@ -101,7 +101,7 @@ public class List<ContentType> {
      */
     public boolean hasAccess() {
         //TODO 01b: Es gibt keinen Zugriff, wenn current auf kein Element verweist.
-        return false;
+        return current != null;
     }
 
     /**
@@ -113,6 +113,7 @@ public class List<ContentType> {
      */
     public void next() {
         //TODO 01c: Wechsel auf die nächste Node
+        if(hasAccess() && current.next != null) current = current.next;
     }
 
     /**
@@ -121,6 +122,7 @@ public class List<ContentType> {
      */
     public void toFirst() {
         //TODO 01d: Sprung zur ersten Node
+            current = first;
     }
 
     /**
@@ -129,6 +131,7 @@ public class List<ContentType> {
      */
     public void toLast() {
         //TODO 01e: Sprung auf die letzte Node
+            current = last;
     }
 
     /**
@@ -140,6 +143,9 @@ public class List<ContentType> {
      *         kein aktuelles Objekt gibt
      */
     public ContentType getContent() {
+        if(hasAccess()){
+            return current.getContentObject();
+        }
         return null;
     }
 
@@ -154,6 +160,9 @@ public class List<ContentType> {
     public void setContent(ContentType pContent) {
         // Nichts tun, wenn es keinen Inhalt oder kein aktuelles Element gibt.
         //TODO 01f: Inhaltsobjekt ersetzen
+        if(hasAccess() && pContent != null){
+            current.setContentObject(pContent);
+        }
     }
 
     /**
@@ -170,6 +179,11 @@ public class List<ContentType> {
      */
     public void insert(ContentType pContent) {
         //TODO 01g: Inhaltsobjekt einfügen
+        if(hasAccess() & pContent != null){
+
+            current.setNextNode(new ListNode(pContent));
+        }
+
     }
 
     /**

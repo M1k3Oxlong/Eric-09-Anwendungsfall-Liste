@@ -27,4 +27,8 @@ public class File {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+   /* public String toString(){
+        return
+    }*/
 }
