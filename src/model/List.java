@@ -179,10 +179,19 @@ public class List<ContentType> {
      */
     public void insert(ContentType pContent) {
         //TODO 01g: Inhaltsobjekt einfügen
-        if(hasAccess() & pContent != null){
-
-            current.setNextNode(new ListNode(pContent));
+        if(pContent != null){
+            if(hasAccess()){
+                current.setNextNode(new ListNode(pContent));
+                if(current == last){
+                    last = last.getNextNode();
+                }
+            }else{
+                if(isEmpty()){
+                    first.setContentObject(pContent);
+                }
+            }
         }
+
 
     }
 
@@ -198,6 +207,15 @@ public class List<ContentType> {
      */
     public void append(ContentType pContent) {
         //TODO 01h: Inhaltsobjekt anhängen
+        if(pContent != null){
+            if(!isEmpty()){
+                last.setNextNode(new ListNode(pContent));
+                last = last.getNextNode();
+            }else{
+                first.setContentObject(pContent);
+            }
+
+        }
     }
 
     /**
@@ -212,6 +230,15 @@ public class List<ContentType> {
      */
     public void concat(List<ContentType> pList) {
         //TODO 01i: eine Liste an eine andere anhängen
+        if(pList != this && pList != null && !pList.isEmpty() ){
+            pList.toFirst();
+            while(pList.last != null){
+                last.setNextNode(new ListNode(pList.current.getContentObject()));
+                last = last.getNextNode();
+                pList.remove();
+                pList.next();
+            }
+        }
     }
 
     /**
@@ -226,6 +253,9 @@ public class List<ContentType> {
     public void remove() {
         // Nichts tun, wenn es kein aktuelles Element gibt oder die Liste leer ist.
         //TODO 01j: eine Node samt Inhaltsobjekt entfernen
+        if(hasAccess()){
+            current = null;
+        }
     }
 
     /**
